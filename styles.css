@@ -94,7 +94,7 @@ nav ul li a:hover {
 
 /* Side-scrolling Gallery */
 .gallery-container {
-    overflow-x: hidden;
+    overflow: hidden;
     white-space: nowrap;
     width: 100%;
     padding: 20px 0;
@@ -103,10 +103,16 @@ nav ul li a:hover {
 
 .gallery-wrapper {
     display: flex;
+    position: relative;
     gap: 22px;
     padding-left: 44px;
-    width: max-content;
-    animation: scrollGallery 30s linear infinite;
+    width: 100%;
+    overflow-x: auto; /* Enables horizontal scrolling */
+    scroll-behavior: smooth;
+    scrollbar-width: none; /* Hide scrollbar for clean look */
+    -ms-overflow-style: none;
+    animation: none !important;
+    transform: none !important;
 }
 
 .gallery-wrapper img {
@@ -120,16 +126,6 @@ nav ul li a:hover {
     transition: transform 0.1s;
     transform: scale(1.1);
 }
-
-@keyframes scrollGallery {
-    from {
-        transform: translateX(0);
-    }
-    to {
-        transform: translateX(-50%);
-    }
-}
-
 /* Overlay for Gallery */
 .overlay {
     position: fixed;
