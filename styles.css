@@ -94,20 +94,23 @@ nav ul li a:hover {
 
 /* Side-scrolling Gallery */
 .gallery-container {
-    overflow-x: auto;
+    overflow-x: hidden;
     white-space: nowrap;
     width: 100%;
     padding: 20px 0;
+    position: relative;
 }
 
 .gallery-wrapper {
-    display: inline-flex;
+    display: flex;
     gap: 22px;
-    padding-left: 20px;
+    padding-left: 44px;
+    width: max-content;
+    animation: scrollGallery 30s linear infinite;
 }
 
 .gallery-wrapper img {
-    width: 400px;
+    width: 300px;
     height: auto;
     cursor: pointer;
     transition: transform 0.1s ease-in, transform 0.2s ease-out;
@@ -116,6 +119,15 @@ nav ul li a:hover {
 .gallery-wrapper img:hover {
     transition: transform 0.1s;
     transform: scale(1.1);
+}
+
+@keyframes scrollGallery {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
 }
 
 /* Overlay for Gallery */
