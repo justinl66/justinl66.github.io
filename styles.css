@@ -50,6 +50,22 @@ nav ul li a:hover {
     color: white;
 }
 
+/* GSAP Anim Header */
+.header {
+    font-size: 80px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    display: flex;
+    gap: 5px;
+    z-index: 2;
+}
+
+.letter {
+    display: inline-block;
+    transform-origin: center;
+}
+
 /* GSAP NN Animation */
 #neural-network {
     position: fixed; /* Keeps it in place */
