@@ -135,7 +135,7 @@ document.addEventListener("DOMContentLoaded", function () {
             [...activeNeurons].map(n => n.element).concat([...activeConnections].map(c => c.element)),
             {
                 stroke: "#ffffff", // White glow
-                duration: 1,
+                duration: 2,
                 ease: "power2.inOut"
             }
         );
