@@ -59,13 +59,13 @@ nav ul li a:hover {
 }
 
 .neuron {
-    fill: white;
-    stroke: #ff6600;
+    fill: rgba(255, 255, 255, 0); /* Invisible neurons */
+    stroke: rgba(255, 102, 0, 0); /* Invisible stroke */
     stroke-width: 2;
 }
 
 .connection {
-    stroke: rgba(0, 0, 0, 0.76);
+    stroke: rgba(255, 102, 0, 0); /* Invisible connections */
     stroke-width: 2;
 }
 
