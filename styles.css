@@ -62,6 +62,7 @@ nav ul li a:hover {
 }
 
 .letter {
+    opacity: 0,
     display: inline-block;
     transform-origin: center;
 }
