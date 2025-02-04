@@ -50,16 +50,39 @@ nav ul li a:hover {
     color: white;
 }
 
+/* GSAP NN Animation */
+#neural-network {
+    position: fixed; /* Keeps it in place */
+    display: block;
+    margin: auto;
+    background: #141414;
+}
+
+.neuron {
+    fill: white;
+    stroke: #ff6600;
+    stroke-width: 2;
+}
+
+.connection {
+    stroke: rgba(0, 0, 0, 0.76);
+    stroke-width: 2;
+}
+
 /* Hero Section */
 .hero {
-    background: url('assets/testimage.jpg') no-repeat center center/cover;
-    height: 800px;
+    position: fixed;
+    width: 100vw; /* Full viewport width */
+    height: 100vh; /* Full viewport height */
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
     text-align: center;
-    background-attachment: fixed;
+    background: #141414; /* Keep dark background */
+    position: relative;
+    overflow: hidden; /* Prevent unwanted overflow */
+    z-index: -1; /* Moves behind other content */
 }
 
 .hero .btn {

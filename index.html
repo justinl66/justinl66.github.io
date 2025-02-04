@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Justin H Lee</title>
+    <title>[Justin H. Lee]</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/CustomEase.min.js"></script>
 </head>
 <body>
     <header>
@@ -17,14 +19,12 @@
             </ul>
         </nav>
     </header>
-    
     <section id="home" class="hero">
-        <div class="hero-content">
-            <h1>Welcome to my site</h1>
-            <p>providing quality services with quality visuals, qualitatively quality controlled</p>
-            <a href="https://www.linkedin.com/in/justinhlee6/" class="btn">Learn More</a>
-        </div>
+        <svg id="neural-network" width="100%" height="600px" viewBox="0 0 800 600">
+            <!-- Layers (Neurons will be added dynamically) -->
+        </svg>
     </section>
+    
 
     <section id="gallery" class="gallery">
         <div class="gallery-container">
@@ -64,6 +64,7 @@
         <p>foot.</p>
     </footer>
     
-    <script src="JS_scripts/script.js"></script>
+    <script src="JS_scripts/gallery_scroll.js"></script>
+    <script src="JS_scripts/GSAP_NN.js"></script>
 </body>
 </html>
