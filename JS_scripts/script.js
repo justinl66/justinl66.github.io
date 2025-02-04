@@ -26,17 +26,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Clone gallery items for infinite loop effect and enable overlay on cloned images
     function cloneGalleryItems() {
-        const images = document.querySelectorAll(".gallery-wrapper img");
+        const galleryWrapper = document.querySelector(".gallery-wrapper");
+        const images = Array.from(document.querySelectorAll(".gallery-wrapper img:not(.cloned)"));
+        let clonedImages = [];
+        
         for (let i = 0; i < 3; i++) { // Clone images 3 times
             images.forEach(image => {
                 let clone = image.cloneNode(true);
-                document.querySelector(".gallery-wrapper").appendChild(clone);
+                clone.classList.add("cloned");
+                clonedImages.push(clone);
             });
         }
+        clonedImages.forEach(clone => galleryWrapper.appendChild(clone)); // Append clones in correct order
     }
 
-    cloneGalleryItems();
-    enableOverlayForImages();
+    window.addEventListener("load", function () {
+        cloneGalleryItems();
+        enableOverlayForImages();
+    });
 
     // Infinite scrolling using requestAnimationFrame()\
     function scrollGallery() {
