@@ -14,46 +14,18 @@ document.addEventListener("DOMContentLoaded", function () {
     window.addEventListener("resize", resizeSVG);
 
     const layers = [
-        { x: window.innerWidth * 0.15, neurons: 5 },  // Input Layer
-        { x: window.innerWidth * 0.4, neurons: 6 },   // Hidden Layer
-        { x: window.innerWidth * 0.6, neurons: 7 },   // Existing Hidden Layer
-        { x: window.innerWidth * 0.85, neurons: 4 }   // Output Layer
+        { x: window.innerWidth * 0.2, neurons: 5 },  // Input Layer
+        { x: window.innerWidth * 0.4, neurons: 6 },  // New Hidden Layer
+        { x: window.innerWidth * 0.6, neurons: 7 },  // Existing Hidden Layer
+        { x: window.innerWidth * 0.8, neurons: 4 }   // Output Layer
     ];
 
     let neurons = [];
     let connections = [];
-    let activatedNeurons = new Set();
-    let activatedConnections = new Set();
 
-    function createGlowFilter() {
-        let defs = document.createElementNS(svgNS, "defs");
-        let filter = document.createElementNS(svgNS, "filter");
-        filter.setAttribute("id", "glow");
-        filter.setAttribute("x", "-50%");
-        filter.setAttribute("y", "-50%");
-        filter.setAttribute("width", "200%");
-        filter.setAttribute("height", "200%");
-
-        let gaussianBlur = document.createElementNS(svgNS, "feGaussianBlur");
-        gaussianBlur.setAttribute("stdDeviation", "4");
-        gaussianBlur.setAttribute("result", "blur");
-
-        let merge = document.createElementNS(svgNS, "feMerge");
-        let mergeNode1 = document.createElementNS(svgNS, "feMergeNode");
-        mergeNode1.setAttribute("in", "blur");
-        let mergeNode2 = document.createElementNS(svgNS, "feMergeNode");
-        mergeNode2.setAttribute("in", "SourceGraphic");
-
-        merge.appendChild(mergeNode1);
-        merge.appendChild(mergeNode2);
-        filter.appendChild(gaussianBlur);
-        filter.appendChild(merge);
-        defs.appendChild(filter);
-        svg.appendChild(defs);
-    }
-
+    // Create Neurons and Connections with correct layering
     function createNeuralNetwork() {
-        createGlowFilter();
+        let connectionElements = []; // Store connections separately
 
         layers.forEach((layer, layerIndex) => {
             let layerNeurons = [];
@@ -64,15 +36,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 neuron.setAttribute("cy", y);
                 neuron.setAttribute("r", 15);
                 neuron.setAttribute("class", "neuron");
-                neuron.style.fill = "rgba(255, 255, 255, 0)";
+                neuron.style.fill = "rgba(255, 255, 255, 0)"; // Invisible initially
                 neuron.style.stroke = "rgba(255, 102, 0, 0)";
-                neuron.style.filter = "url(#glow)";
-                svg.appendChild(neuron);
                 layerNeurons.push({ x: layer.x, y, element: neuron });
             }
             neurons.push(layerNeurons);
         });
 
+        // Create connections and store them separately
         for (let i = 0; i < neurons.length - 1; i++) {
             let layerConnections = [];
             neurons[i].forEach(fromNeuron => {
@@ -83,28 +54,31 @@ document.addEventListener("DOMContentLoaded", function () {
                     line.setAttribute("x2", toNeuron.x);
                     line.setAttribute("y2", toNeuron.y);
                     line.setAttribute("class", "connection");
-                    line.style.stroke = "rgba(255, 102, 0, 0)";
-                    line.style.strokeWidth = "2";
-                    line.style.filter = "url(#glow)";
-                    svg.appendChild(line);
+                    line.style.stroke = "rgba(255, 102, 0, 0)"; // Invisible initially
+                    connectionElements.push(line); // Store the connection
                     layerConnections.push({ from: fromNeuron, to: toNeuron, element: line });
                 });
             });
             connections.push(layerConnections);
         }
+
+        // Append all connections first (so they render behind neurons)
+        connectionElements.forEach(line => svg.appendChild(line));
+
+        // Append all neurons after connections
+        neurons.flat().forEach(n => svg.appendChild(n.element));
     }
 
+    // Function to randomly select 1/4 of the connections in a layer
     function selectRandomConnections(layerConnections) {
         let total = layerConnections.length;
-        let numToSelect = Math.ceil(total / 4); // Select 1/4
-        let shuffled = [...layerConnections].sort(() => Math.random() - 0.5);
-        return shuffled.slice(0, numToSelect);
+        let numToSelect = Math.ceil(total / 4); // Select about 1/4
+        let shuffled = [...layerConnections].sort(() => Math.random() - 0.5); // Shuffle connections
+        return shuffled.slice(0, numToSelect); // Pick first 1/4 of shuffled
     }
 
+    // Reset all neuron and connection states before each cycle
     function resetNetwork() {
-        activatedNeurons.clear();
-        activatedConnections.clear();
-
         neurons.flat().forEach(n => {
             n.element.style.fill = "rgba(255, 255, 255, 0)";
             n.element.style.stroke = "rgba(255, 102, 0, 0)";
@@ -112,83 +86,67 @@ document.addEventListener("DOMContentLoaded", function () {
 
         connections.flat().forEach(c => {
             c.element.style.stroke = "rgba(255, 102, 0, 0)";
-            c.element.style.strokeWidth = "2";
         });
     }
 
+    // Animate the neural network signal propagation with random selection every cycle
     function animateSignal() {
-        resetNetwork();
+        resetNetwork(); // Clear previous connections before starting a new cycle
 
-        let animationTimeline = gsap.timeline();
+        let animationTimeline = gsap.timeline({ repeatDelay: 1 });
 
-        let activeNeurons = new Set();
+        let activeNeurons = new Set(); // Store neurons that should light up
+        let activeConnections = new Set(); // Store activated connections for final glow effect
 
         neurons.forEach((layer, layerIndex) => {
             let selectedConnections = [];
 
             if (layerIndex === 0) {
+                // Ensure the input layer neurons always light up
                 activeNeurons = new Set(layer);
             } else {
+                // Select a new random set of connections each time
                 selectedConnections = selectRandomConnections(connections[layerIndex - 1]);
+
+                // Filter only connections that come from already lit neurons
                 selectedConnections = selectedConnections.filter(conn => activeNeurons.has(conn.from));
+
+                // Update active neurons based on selected connections
                 activeNeurons = new Set(selectedConnections.map(c => c.to));
+
+                // Store activated connections for the final glow effect
+                activeConnections = new Set([...activeConnections, ...selectedConnections]);
             }
 
-            activatedNeurons = new Set([...activatedNeurons, ...activeNeurons]);
-            activatedConnections = new Set([...activatedConnections, ...selectedConnections]);
-
+            // Animate neurons and their corresponding connections at the same time
             animationTimeline.to(
-                [...activeNeurons].map(n => n.element).concat(selectedConnections.map(c => c.element)), 
+                [...activeNeurons].map(n => n.element).concat(selectedConnections.map(c => c.element)),
                 {
                     fill: "#ffffff",
                     stroke: "#ff6600",
-                    strokeWidth: 4,
-                    duration: 1.5,
-                    ease: "power1.inOut"
+                    duration: 1, // Slower animation
+                    yoyo: true
                 }
-            );
-
-            animationTimeline.to(
-                [...activeNeurons].map(n => n.element).concat(selectedConnections.map(c => c.element)), 
-                {
-                    fill: "#ff6600",
-                    stroke: "#ffffff",
-                    strokeWidth: 5,
-                    duration: 0.5,
-                    yoyo: true,
-                    repeat: 1
-                }, "-=1.0"
             );
         });
 
-        // Final Glow & Fade Out Only for Activated Elements
+        // Final Glow Effect: Highlight only the neurons and connections that were activated in white
         animationTimeline.to(
-            [...activatedNeurons].map(n => n.element).concat([...activatedConnections].map(c => c.element)), 
+            [...activeNeurons].map(n => n.element).concat([...activeConnections].map(c => c.element)),
             {
-                fill: "#ffffff",
-                stroke: "#ffffff",
-                strokeWidth: 6,
-                duration: 1.0
+                stroke: "#ffffff", // White glow
+                duration: 1,
+                ease: "power2.inOut"
             }
         );
 
-        animationTimeline.to(
-            [...activatedNeurons].map(n => n.element).concat([...activatedConnections].map(c => c.element)), 
-            {
-                fill: "rgba(255, 255, 255, 0)",
-                stroke: "rgba(255, 102, 0, 0)",
-                strokeWidth: 2,
-                duration: 1.5,
-                ease: "power2.in"
-            }
-        );
-
-        animationTimeline.play().eventCallback("onComplete", animateSignal);
+        animationTimeline.play().eventCallback("onComplete", animateSignal); // Restart animation fresh
     }
 
+    // Initialize everything
     function initNeuralNetwork() {
         createNeuralNetwork();
-        setTimeout(animateSignal, 1000);
+        setTimeout(animateSignal, 1000); // Delay start by 1s
     }
 
     initNeuralNetwork();

@@ -56,6 +56,8 @@ nav ul li a:hover {
     display: block;
     margin: auto;
     background: #141414;
+    filter: blur(10PX);
+    z-index: 1;
 }
 
 .neuron {
@@ -98,6 +100,32 @@ nav ul li a:hover {
     color: #141414;
     background: white;
 }
+
+.hero-header {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white; /* Adjust to fit your theme */
+    font-family: 'Poppins', sans-serif;
+    font-size: 24px;
+    z-index: 2; /* Ensure it stays on top */
+    background: rgba(0, 0, 0, 0); /* Optional: Adds a slight background for readability */
+    padding: 15px 30px;
+    border-radius: 10px;
+}
+
+.hero-header h1 {
+    font-size: 2em;
+    margin: 0;
+}
+
+.hero-header p {
+    font-size: 1.2em;
+    margin-top: 5px;
+}
+
 
 /* fixed Containers */
 .fixed-container {
