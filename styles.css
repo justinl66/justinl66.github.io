@@ -62,7 +62,6 @@ nav ul li a:hover {
 }
 
 .letter {
-    opacity: 0,
     display: inline-block;
     transform-origin: center;
 }
@@ -232,4 +231,9 @@ footer {
     text-align: center;
     padding: 10px;
     position: relative;
+}
+
+html {
+    visibility: visible;
+    opacity: 1;
 }
