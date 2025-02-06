@@ -142,6 +142,46 @@ nav ul li a:hover {
     font-size: 1.2em;
     margin-top: 5px;
 }
+/* bobbing icon */
+@keyframes bobbing {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px); /* Adjust bobbing height */
+    }
+}
+
+/* Ensure container is properly positioned */
+.bottom-container {
+    position: relative;  /* Keeps it inside normal document flow */
+    width: 100%;
+    height: auto; /* Adjust height if necessary */
+    z-index: 2;
+    animation: bobbing 2s ease-in-out infinite;
+}
+
+/* Position the image at the bottom of the page */
+.bob {
+    opacity: 0; /* Initially hidden */
+    animation: fadeIn 2s ease-in forwards;
+    animation-delay: 5s; /* Delay before fading in */
+    filter: invert(1);
+    position: absolute;
+    left: 50%;  
+    bottom: 20px;  /* Distance from bottom */
+    transform: translateX(-50%); /* Perfect centering */
+    width: 100px; /* Adjust as needed */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
 
 
 /* fixed Containers */
