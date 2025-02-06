@@ -6,6 +6,7 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    overflow-x: hidden;
 }
 
 /* Navigation */
@@ -161,6 +162,8 @@ nav ul li a:hover {
 
 /* Side-scrolling Gallery */
 .gallery-container {
+    display:flex;
+    justify-content: center;
     background: #141414;
     overflow: hidden;
     white-space: nowrap;
@@ -187,6 +190,7 @@ nav ul li a:hover {
 
 .gallery-wrapper img {
     width: 300px;
+    max-width: 100%;
     height: auto;
     cursor: pointer;
     transition: transform 0.1s ease-in, transform 0.2s ease-out;
@@ -227,10 +231,12 @@ nav ul li a:hover {
 /* Footer */
 footer {
     background: #141414;
+    width: 100%;
     color: white;
     text-align: center;
     padding: 10px;
     position: relative;
+    z-index: 1000;
 }
 
 html {
