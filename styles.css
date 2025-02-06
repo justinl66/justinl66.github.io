@@ -44,6 +44,10 @@ nav ul li a:hover {
     transition: color 0s;
 }
 
+h1 {
+    font-size: 100px;
+    margin: 0;
+}
 .menu-toggle {
     display: none;
     font-size: 2em;
@@ -101,7 +105,7 @@ nav ul li a:hover {
     background: #141414; /* Keep dark background */
     position: relative;
     overflow: hidden; /* Prevent unwanted overflow */
-    z-index: -1; /* Moves behind other content */
+    z-index: 0; /* Moves behind other content */
 }
 
 .hero .btn {
@@ -134,6 +138,12 @@ nav ul li a:hover {
 }
 
 .hero-header h1 {
+    position: relative;
+    font-size: 2em;
+    margin: 0;
+}
+
+.hero-header h2 {
     font-size: 2em;
     margin: 0;
 }
@@ -186,10 +196,15 @@ nav ul li a:hover {
 
 /* fixed Containers */
 .fixed-container {
+    position: relative;
     background: #141414;
     display: flex;
     justify-content: space-around;
     padding: 20px;
+    color: white;
+    text-align: center;
+    gap: 5px;
+    z-index: 5;
 }
 
 .fixed-box {
@@ -198,6 +213,7 @@ nav ul li a:hover {
     background: #182c25;
     text-align: center;
     border-radius: 5px;
+    z-index: 5;
 }
 
 /* Side-scrolling Gallery */
