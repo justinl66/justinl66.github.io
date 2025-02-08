@@ -213,7 +213,7 @@ h1 {
     left: 0;
     width: 100%;
     height: 200px; /* Double the height */
-    background: rgb(17, 17, 17, 1); /* Solid background */
+    background: rgb(20, 20, 20, 1); /* Solid background */
     z-index: -1; /* Place behind the content */
 }
 
