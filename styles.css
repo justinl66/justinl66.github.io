@@ -175,7 +175,7 @@ h1 {
 .bob {
     opacity: 0; /* Initially hidden */
     animation: fadeIn 2s ease-in forwards;
-    animation-delay: 5s; /* Delay before fading in */
+    animation-delay: 2s; /* Delay before fading in */
     filter: invert(1);
     position: absolute;
     left: 50%;  
