@@ -193,69 +193,54 @@ h1 {
     }
 }
 
-
 /* fixed Containers */
 .fixed-container {
     position: relative;
-    background: #141414;
+    background: rgba(20, 20, 20, 0.7); /* 70% opacity */
     display: flex;
-    justify-content: space-around;
+    flex-direction: column; /* Keep column direction for header */
+    align-items: center; /* Center align items */
     padding: 20px;
     color: white;
     text-align: center;
-    gap: 5px;
+    gap: 20px; /* Adjust gap between items */
     z-index: 5;
 }
 
+.fixed-container-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 200px; /* Double the height */
+    background: rgb(17, 17, 17, 1); /* Solid background */
+    z-index: -1; /* Place behind the content */
+}
+
+.fixed-container h1 {
+    margin-bottom: 20px; /* Add margin below the header */
+    text-align: left; /* Align to the left */
+    width: 100%; /* Ensure it takes full width */
+    padding-left: 100px; /* Add padding to the left */
+}
+
+.fixed-box-container {
+    display: flex;
+    justify-content: space-around; /* Space out the boxes */
+    width: 100%;
+}
+
 .fixed-box {
-    width: 30%;
+    width: 30%; /* Adjust width to fit within container */
+    height: 300px; /* Adjust height as needed */
     padding: 20px;
-    background: #182c25;
+    background: rgba(34, 34, 34, 0.7); /* Change to 0% opacity */
     text-align: center;
+    background-blend-mode: blur(10PX);
     border-radius: 5px;
     z-index: 5;
 }
 
-/* Side-scrolling Gallery */
-.gallery-container {
-    display:flex;
-    justify-content: center;
-    background: #141414;
-    overflow: hidden;
-    white-space: nowrap;
-    width: 100%;
-    border: 3px solid #141414; /* Adds a gray border around the sliding images */
-    border-radius: 8px; /* Optional rounded corners */
-    padding: 10px; /* Optional spacing */
-    position: relative;
-}
-
-.gallery-wrapper {
-    display: flex;
-    position: relative;
-    gap: 22px;
-    padding-left: 44px;
-    width: 100%;
-    overflow-x: auto; /* Enables horizontal scrolling */
-    scroll-behavior: smooth;
-    scrollbar-width: none; /* Hide scrollbar for clean look */
-    -ms-overflow-style: none;
-    animation: none !important;
-    transform: none !important;
-}
-
-.gallery-wrapper img {
-    width: 300px;
-    max-width: 100%;
-    height: auto;
-    cursor: pointer;
-    transition: transform 0.1s ease-in, transform 0.2s ease-out;
-}
-
-.gallery-wrapper img:hover {
-    transition: transform 0.1s;
-    transform: scale(1.1);
-}
 /* Overlay for Gallery */
 .overlay {
     position: fixed;
@@ -298,4 +283,8 @@ footer {
 html {
     visibility: visible;
     opacity: 1;
+}
+
+.no-flash {
+    visibility: hidden;
 }

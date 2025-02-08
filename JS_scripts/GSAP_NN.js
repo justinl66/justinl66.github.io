@@ -146,7 +146,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Initialize everything
     function initNeuralNetwork() {
         createNeuralNetwork();
-        setTimeout(animateSignal, 1000); // Delay start by 1s
+        setTimeout(animateSignal, 250); // Reduced delay
     }
 
     initNeuralNetwork();
