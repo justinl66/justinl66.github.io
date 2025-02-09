@@ -16,6 +16,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/CustomEase.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"> <!-- Font Awesome for icons -->
+    <link href="https://unpkg.com/swiper/swiper-bundle.min.css" rel="stylesheet">
 </head>
 <body class="no-flash">
     <header>
@@ -94,6 +95,24 @@
             </div>
         </div>
     </section>
+
+    
+    <section id="projects2">
+        <!-- Swiper -->
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <!-- Slides with temporary images -->
+                <div class="swiper-slide"><img src="assets/project1.jpg" alt="Project 1"></div>
+                <div class="swiper-slide"><img src="assets/project2.jpg" alt="Project 2"></div>
+                <div class="swiper-slide"><img src="assets/project3.jpg" alt="Project 3"></div>
+                <!-- ...add more slides as needed... -->
+            </div>
+            <!-- Navigation buttons -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+    </section>
+
     <section id="contact">
         <footer>
             <p>(not) Updated Feb. 2025</p>
@@ -102,6 +121,9 @@
     
     <script src="JS_scripts/GSAP_NN.js"></script>
     <script src="JS_scripts/introheader.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="JS_scripts/menutoggle.js"></script>
+    <script src="JS_scripts/swiperapi.js"></script>
     <link rel="stylesheet" href="styles.css">
     <script>
         window.addEventListener('load', function() {
