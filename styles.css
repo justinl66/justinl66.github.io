@@ -277,12 +277,16 @@ h1 {
     max-height: 500px; /* Limit the maximum height */
     margin: 0 auto; /* Center the container */
     position: relative; /* Ensure the container is positioned relative */
+    overflow: visible;
 }
 
+/* Swiper slides scaling */
 .swiper-slide {
     text-align: center;
     font-size: 18px;
     background: #fff;
+    transform: scale(0.75);
+    transition: transform 0.3s ease;
 
     /* Center slide text vertically */
     display: -webkit-box;
@@ -299,6 +303,10 @@ h1 {
     align-items: center;
 }
 
+.swiper-slide-active {
+    transform: scale(1);
+}
+
 .swiper-slide img {
     width: 100%;
     height: auto;
@@ -311,30 +319,34 @@ h1 {
 /* Navigation buttons */
 .swiper-button-next,
 .swiper-button-prev {
+    /* Updated styling for pop-out effect */
     color: #fff;
-    width: 44px;
-    height: 44px;
-    background: rgba(0, 0, 0, 0.5);
+    width: 50px; /* Increased size */
+    height: 50px;
+    background: rgba(0, 0, 0, 0.5); /* Brighter background */
+    border: 2px solid #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    position: absolute; /* Position the buttons absolutely within the container */
-    top: 50%; /* Center vertically */
-    transform: translateY(-50%); /* Adjust for perfect centering */
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .swiper-button-next {
-    right: 10px; /* Position next button on the right */
+    right: 10px;
 }
 
 .swiper-button-prev {
-    left: 10px; /* Position prev button on the left */
+    left: 10px;
 }
 
 .swiper-button-next::after,
 .swiper-button-prev::after {
-    font-size: 20px;
+    font-size: 22px; /* Increase the icon size */
+    font-weight: bold;
 }
 
 /* Footer */
