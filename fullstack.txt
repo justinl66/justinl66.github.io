@@ -1,0 +1,131 @@
+Front-end framework & bundler
+Vite + React (with TypeScript)
+
+Why: Lightning‐fast dev server, instant HMR, and out-of-the-box support for TS, JSX, and code-splitting.
+
+Getting started:
+
+bash
+Copy
+Edit
+npm create vite@latest my-platformer -- --template react-ts
+cd my-platformer
+npm install
+Game engine
+Phaser 3
+
+Why: Battle-tested 2D HTML5 game framework with Scenes, arcade physics, tilemaps, sprites, and easy asset loading.
+
+Integration:
+
+npm install phaser
+
+In your React app, create a <GameCanvas /> component that on mount instantiates a Phaser Game targeting a <div> ref.
+
+Build different Phaser scenes that correspond to “areas” of your site (About, Projects, Blog, Contact).
+
+When the player sprite overlaps a certain tile/zone, pause the game and render the corresponding React overlay/modal with your usual page content.
+
+Styling
+Tailwind CSS
+
+Why: Utility-first, highly customizable, you already know it.
+
+Setup:
+
+bash
+Copy
+Edit
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+Then point your tailwind.config.js at src/**/*.{js,jsx,ts,tsx}.
+
+Content & data
+Since GitHub Pages only serves static files, you have two main approaches:
+
+MDX files for sections you want non-game visitors to crawl.
+
+Use vite-plugin-mdx to import markdown (and embed React) as pages that your “portal” scenes load.
+
+Pure JSON for structured data (your resume, project list, blog post metadata), loaded at runtime with fetch(…).
+
+Contact form / dynamic bits
+If you need a working contact form, you can’t host server code on Pages. Two easy options:
+
+Formspree or Getform: point your <form action="…"> at their endpoint.
+
+Serverless (optional): deploy Netlify Functions or Vercel Serverless alongside; call via XHR/fetch from your Phaser scene.
+
+Deployment
+Add a homepage field in your package.json:
+
+json
+Copy
+Edit
+{
+  "homepage": "https://<your-gh-username>.github.io/<repo-name>"
+}
+Install the GH-Pages helper:
+
+bash
+Copy
+Edit
+npm install --save-dev gh-pages
+Add scripts:
+
+json
+Copy
+Edit
+"scripts": {
+  "predeploy": "npm run build",
+  "deploy":   "gh-pages -d dist"
+}
+Publish:
+
+bash
+Copy
+Edit
+git init
+git remote add origin git@github.com:your-username/your-repo.git
+git add .
+git commit -m "Init"
+npm run deploy
+(Optional) CI/CD:
+Use a simple GitHub Actions workflow to run npm ci && npm run deploy on pushes to main.
+
+Folder structure suggestion
+java
+Copy
+Edit
+my-platformer/
+├─ public/           ← static assets (images, tilemaps, favicon…)
+├─ src/
+│  ├─ assets/        ← preloaded spritesheets, maps
+│  ├─ game/          ← Phaser scenes & config
+│  ├─ components/    ← React UI overlays, navbar, modals
+│  ├─ data/          ← JSON/MDX content
+│  ├─ App.tsx
+│  └─ main.tsx
+├─ tailwind.config.js
+├─ vite.config.ts
+└─ package.json
+Why this works for GitHub Pages
+100% static: all your code, assets and content build down to HTML/CSS/JS in dist/.
+
+No runtime server: Phaser runs in the browser, React overlays render client-side.
+
+Easy deploy: gh-pages pushes straight into gh-pages branch.
+
+Scalable: want a blog next? Drop in MDX, add a scene portal, and you’re done.
+
+With that stack you get:
+
+A snappy dev feedback loop via Vite.
+
+A full‐featured 2D platformer engine in Phaser.
+
+Rock-solid UI and styling in React + Tailwind.
+
+A zero-cost, zero-server host on GitHub Pages.
+
+Let me know if you’d like boilerplate snippets for mounting Phaser in React, MDX integration, or GH Actions config!
